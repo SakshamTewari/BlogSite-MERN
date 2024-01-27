@@ -3,11 +3,14 @@ import Projects from '../pages/Projects';
 import About from '../pages/About';
 import Home from '../pages/Home';
 import { Button, Navbar, TextInput } from 'flowbite-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {AiOutlineSearch} from 'react-icons/ai'
 import {FaMoon} from 'react-icons/fa'
 
 function Header() {
+
+    const path = useLocation().pathname;
+
   return (
     <Navbar className='border-b-2'>
         <Link to="/" className='self-center font-bold whitespace-nowrap text-sm sm:text-xl dark:text-white'>
@@ -24,20 +27,20 @@ function Header() {
                 <FaMoon/>
             </Button>
             <Link to='/signIn'>
-                <Button className='w-10 h-12 bg-gradient-to-r  from-black via-purple-900 to-indigo-800 text-white '>
+                <Button className='w-15 h-12 bg-gradient-to-r  from-black via-purple-900 to-indigo-800 text-white' outline>
                     SignIn
                 </Button>
             </Link>
             <Navbar.Toggle/>
         </div>
             <Navbar.Collapse>
-                <Navbar.Link>
+                <Navbar.Link active = {path==='/'} as={'div'}>
                     <Link to='/'>Home</Link>                   
                 </Navbar.Link>
-                <Navbar.Link>
+                <Navbar.Link active = {path==='/about'} as={'div'}>
                 <Link to='/about'>About</Link>                  
                 </Navbar.Link>
-                <Navbar.Link>
+                <Navbar.Link active = {path==='/projects'} as={'div'}>
                 <Link to='/projects'>Projects</Link>                  
                 </Navbar.Link>                
             </Navbar.Collapse>
