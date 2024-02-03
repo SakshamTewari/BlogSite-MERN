@@ -4,7 +4,7 @@ const {mongo, vars } = require('./vars');
 
 // Exit application on error
 mongoose.connection.on('error', (error) => {
-    logger.error(`MongoDB connection error: ${error}`);
+    console.log(`MongoDB connection error: ${error}`);
     process.exit(-1);
   });
   
