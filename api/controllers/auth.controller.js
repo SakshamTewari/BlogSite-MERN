@@ -1,11 +1,12 @@
 const newError = require('http-errors');
 const User = require('../models/user.model');
 const bcrypt = require('bcryptjs');
-async function signup(req, res){
+const {errorHandler} = require('../utils/error');
+async function signup(req, res, next){
         const { username, email, password } = req.body;
 
         if(!username || !email || !password)
-            return res.status(404).json({message:'404, fields required'});
+            next(errorHandler(400, 'All fields required'));
         
         const hashedPassword = bcrypt.hashSync(password,10);
 
@@ -14,13 +15,13 @@ async function signup(req, res){
             email,
             password: hashedPassword,
         });
-        console.log(newUser);
+        // console.log(newUser);
         try{
             await newUser.save();
             res.json('SignUp successful');
         }
         catch(error){
-            res.status(500).json({message: error.message});
+            next(error);
         }
         
 

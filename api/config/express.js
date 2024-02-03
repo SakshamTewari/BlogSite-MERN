@@ -18,13 +18,13 @@ app.use((req, res, next) => {
     next(createError.Unauthorized); // Use http-errors to create a 404 error
   });
 
-app.use((err, req, res) => {
-    res.status(err.status || 500);
-    res.json({
-      error: {
-        message: err.message,
-        status: err.status,
-      },
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || 'Internal Server Error';
+    res.status(statusCode).json({
+      success: false,
+      statusCode,
+      message,
     });
   });
 
