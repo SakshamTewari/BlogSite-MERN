@@ -10,5 +10,9 @@ require('dotenv').config({
 module.exports = {
     mongo: {
         uri: process.env.MONGODB_URI,
-    }
+    },
+    JWT: {
+        secret: process.env.JWT_SECRET,
+    },
+
 }
